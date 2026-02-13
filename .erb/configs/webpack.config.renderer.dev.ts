@@ -18,9 +18,9 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const manifest = path.resolve(webpackPaths.dllPath, 'renderer.json');
-const requiredByDLLConfig = module.parent!.filename.includes(
+const requiredByDLLConfig = module.parent?.filename?.includes(
   'webpack.config.renderer.dev.dll'
-);
+) ?? false;
 
 /**
  * Warn if the DLL is not built
@@ -107,8 +107,6 @@ const configuration: webpack.Configuration = {
           }),
         ]),
 
-    new webpack.NoEmitOnErrorsPlugin(),
-
     /**
      * Create global constants which can be configured at compile time.
      *
@@ -123,10 +121,6 @@ const configuration: webpack.Configuration = {
      */
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
-    }),
-
-    new webpack.LoaderOptionsPlugin({
-      debug: true,
     }),
 
     new ReactRefreshWebpackPlugin(),
@@ -151,7 +145,7 @@ const configuration: webpack.Configuration = {
     __filename: false,
   },
 
-  // @ts-ignore
+  // @ts-ignore: devServer is from webpack-dev-server, not webpack
   devServer: {
     port,
     compress: true,
@@ -163,15 +157,16 @@ const configuration: webpack.Configuration = {
     historyApiFallback: {
       verbose: true,
     },
-    onBeforeSetupMiddleware() {
+    setupMiddlewares(middlewares: unknown[]) {
       console.log('Starting Main Process...');
       spawn('npm', ['run', 'start:main'], {
         shell: true,
         env: process.env,
         stdio: 'inherit',
       })
-        .on('close', (code: number) => process.exit(code!))
+        .on('close', (code: number) => process.exit(code ?? 1))
         .on('error', (spawnError) => console.error(spawnError));
+      return middlewares;
     },
   },
 };

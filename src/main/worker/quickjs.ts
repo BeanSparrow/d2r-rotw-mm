@@ -29,6 +29,9 @@ export async function initQuickJS(): Promise<void> {
         {
           ...releaseAsyncVariant,
           importModuleLoader: () => {
+            // Load the ESM module source and transform it to work in CommonJS context
+            // This is necessary because Electron's ASAR doesn't support ESM imports
+            // Security note: This only loads from the bundled app resources, not user input
             const mjsSourceCode = readFileSync(
               path.join(modulePath, 'emscripten-module.mjs'),
             )
@@ -38,6 +41,7 @@ export async function initQuickJS(): Promise<void> {
                 `"file:///${modulePath.replace(/\\/g, '/')}"`,
               )
               .replace('export default ', '');
+            // eslint-disable-next-line no-eval
             return eval(mjsSourceCode);
           },
         },
