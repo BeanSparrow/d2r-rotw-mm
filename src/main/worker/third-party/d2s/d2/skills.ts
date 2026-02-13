@@ -22,10 +22,11 @@ export async function readSkills(
   }
   for (let i = 0; i < 30; i++) {
     const id = offset + i;
+    const skill = constants.skills[id];
     char.skills.push({
       id: id,
       points: reader.ReadUInt8(),
-      name: constants.skills[id].s,
+      name: skill?.s ?? `Unknown Skill ${id}`,
     } as types.ISkill);
   }
 }
@@ -55,4 +56,5 @@ const SkillOffset: ISkillOffset = {
   Barbarian: 126,
   Druid: 221,
   Assassin: 251,
+  Warlock: 373,
 };

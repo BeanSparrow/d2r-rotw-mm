@@ -456,20 +456,22 @@ function _descFunc(
       break;
     }
     case 15: {
+      const skill15 = constants.skills[property.values[1]];
       descString = _sprintf(
         descString,
         property.values[2],
         property.values[0],
-        constants.skills[property.values[1]].s,
+        skill15?.s ?? `Unknown Skill ${property.values[1]}`,
       );
       property.description = `${descString}`;
       break;
     }
     case 16: {
+      const skill16 = constants.skills[property.values[0]];
       property.description = descString.replace(/%d/, v.toString());
       property.description = property.description.replace(
         /%s/,
-        constants.skills[property.values[0]].s,
+        skill16?.s ?? `Unknown Skill ${property.values[0]}`,
       );
       break;
     }
@@ -508,17 +510,19 @@ function _descFunc(
     case 24: {
       //charges
       //legacy desc string
+      const skill24 = constants.skills[property.values[1]];
+      const skillName24 = skill24?.s ?? `Unknown Skill ${property.values[1]}`;
       if (descString.indexOf('(') == 0) {
         let count = 0;
         descString = descString.replace(/%d/gi, () => {
           return property.values[2 + count++].toString();
         });
-        property.description = `Level ${property.values[0]} ${constants.skills[property.values[1]].s} ${descString}`;
+        property.description = `Level ${property.values[0]} ${skillName24} ${descString}`;
       } else {
         property.description = _sprintf(
           descString,
           property.values[0],
-          constants.skills[property.values[1]].s,
+          skillName24,
           property.values[2],
           property.values[3],
         );
@@ -526,18 +530,20 @@ function _descFunc(
       break;
     }
     case 27: {
-      const skill = constants.skills[property.values[0]];
-      const clazz = _classFromCode(skill.c, constants);
+      const skill27 = constants.skills[property.values[0]];
+      const clazz = skill27 ? _classFromCode(skill27.c, constants) : null;
+      const skillName27 = skill27?.s ?? `Unknown Skill ${property.values[0]}`;
       if (descString) {
-        property.description = _sprintf(descString, v, skill?.s, clazz?.co);
+        property.description = _sprintf(descString, v, skillName27, clazz?.co);
       } else {
-        property.description = `${sign}${v} to ${skill?.s} ${clazz?.co}`;
+        property.description = `${sign}${v} to ${skillName27} ${clazz?.co ?? ''}`;
       }
       break;
     }
     case 28: {
-      const skill = constants.skills[property.values[0]];
-      property.description = `${sign}${v} to ${skill?.s}`;
+      const skill28 = constants.skills[property.values[0]];
+      const skillName28 = skill28?.s ?? `Unknown Skill ${property.values[0]}`;
+      property.description = `${sign}${v} to ${skillName28}`;
       break;
     }
     case 29: {

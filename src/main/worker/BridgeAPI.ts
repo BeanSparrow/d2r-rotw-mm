@@ -22,7 +22,6 @@ import {
 } from 'fs';
 import path from 'path';
 import { Scope } from 'quickjs-emscripten';
-import ref from 'ref-napi';
 import regedit from 'regedit';
 import {
   MappingItem,
@@ -34,10 +33,12 @@ import ts from 'typescript';
 import packageManifest from '../../../release/app/package.json';
 import { getAppPath, getBaseSavesPath } from './AppInfoAPI';
 import {
-  dwordPtr,
+  allocUint32Ptr,
+  allocVoidPtrPtr,
+  derefUint32Ptr,
+  derefVoidPtrPtr,
   getCascLib,
   getLastCascLibError,
-  voidPtrPtr,
 } from './CascLib';
 import { EventAPI } from './EventAPI';
 import { provideAPI } from './IPC';
@@ -145,7 +146,7 @@ function createError(
 //       that would recursively extract all files in a directory
 // e.g. https://github.com/ladislav-zezula/CascLib/blob/4fc4c18bd5a49208337199a7f4256271675cae44/test/CascTest.cpp#L816
 
-const cascStoragePtr = ref.alloc(voidPtrPtr);
+const cascStoragePtr = allocVoidPtrPtr();
 let cascStorageIsOpen = false;
 
 export const BridgeAPI: IBridgeAPI = {
@@ -240,7 +241,7 @@ export const BridgeAPI: IBridgeAPI = {
     console.debug('BridgeAPI.closeStorage');
 
     if (cascStorageIsOpen) {
-      const storage = cascStoragePtr.deref();
+      const storage = derefVoidPtrPtr(cascStoragePtr);
       if (getCascLib().CascCloseStorage(storage)) {
         cascStorageIsOpen = false;
       } else {
@@ -265,9 +266,9 @@ export const BridgeAPI: IBridgeAPI = {
         throw createError('BridgeAPI.isGameFile', 'CASC storage is not open');
       }
 
-      const storage = cascStoragePtr.deref();
+      const storage = derefVoidPtrPtr(cascStoragePtr);
 
-      const filePtr = ref.alloc(voidPtrPtr);
+      const filePtr = allocVoidPtrPtr();
       if (
         !getCascLib().CascOpenFile(
           storage,
@@ -302,9 +303,9 @@ export const BridgeAPI: IBridgeAPI = {
         );
       }
 
-      const storage = cascStoragePtr.deref();
+      const storage = derefVoidPtrPtr(cascStoragePtr);
 
-      const filePtr = ref.alloc(voidPtrPtr);
+      const filePtr = allocVoidPtrPtr();
       if (
         !getCascLib().CascOpenFile(
           storage,
@@ -321,16 +322,16 @@ export const BridgeAPI: IBridgeAPI = {
         );
       }
 
-      const file = filePtr.deref();
-      const bytesReadPtr = ref.alloc(dwordPtr);
+      const file = derefVoidPtrPtr(filePtr);
+      const bytesReadPtr = allocUint32Ptr();
 
       // if the file is larger than 10 MB... I got bad news for you.
       const size = 10 * 1024 * 1024;
-      const buffer = Buffer.alloc(size) as ref.Pointer<void>;
-      buffer.type = ref.types.void;
+      const buffer = Buffer.alloc(size);
 
       if (getCascLib().CascReadFile(file, buffer, size, bytesReadPtr)) {
-        output = Buffer.from(buffer.buffer);
+        const bytesRead = derefUint32Ptr(bytesReadPtr);
+        output = Buffer.from(buffer.buffer, 0, bytesRead);
       } else {
         throw createError(
           'BridgeAPI.extractFileToMemory',
