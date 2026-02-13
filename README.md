@@ -11,6 +11,8 @@ This fork adds support for the **Warlock class** from the Reign of Terror DLC an
 - **Replaced ffi-napi with koffi** - No more native module compilation issues on newer Node versions
 - **Updated ExpandedInventory mod** - Includes Warlock in the supported classes
 
+See the full [CHANGELOG](CHANGELOG.md) for detailed technical changes.
+
 ## Original Project
 
 See the [Nexus page](https://www.nexusmods.com/diablo2resurrected/mods/169) for a full description of D2RMM.
@@ -45,6 +47,7 @@ npm run build:config-schema  # build config json schema
 This fork migrates from `ffi-napi`/`ref-napi` to `koffi` for FFI bindings to CascLib. This eliminates native module compilation issues that occurred with Node 18+ and makes the build process more reliable.
 
 Key files modified:
+
 - `src/main/worker/CascLib.ts` - Rewritten to use koffi
 - `src/main/worker/BridgeAPI.ts` - Updated pointer handling
 - `src/main/worker/third-party/d2s/d2/skills.ts` - Added Warlock skill offset
