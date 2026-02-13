@@ -140,5 +140,5 @@ const storage = cascStoragePtr[0];
 This fork is compatible with:
 
 - Diablo II: Resurrected (latest version)
-- Reign of Terror DLC (Warlock class)
+- Reign of the Warlock DLC (Warlock class)
 - All existing D2RMM mods (no mod changes required)
