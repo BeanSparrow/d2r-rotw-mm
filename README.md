@@ -4,6 +4,10 @@ D2RMM is a mod manager for Diablo II: Resurrected.
 
 This fork adds support for the **Warlock class** from the Reign of the Warlock DLC and modernizes the codebase for current Node.js/Electron versions.
 
+## Download
+
+**[Download Latest Release](https://github.com/BeanSparrow/d2r-rotw-mm/releases/latest)**
+
 ## What's New in This Fork
 
 - **Warlock class support** - Skill offset 373 for the new Warlock class
