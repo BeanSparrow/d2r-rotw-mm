@@ -2,7 +2,7 @@
 
 D2RMM is a mod manager for Diablo II: Resurrected.
 
-This fork adds support for the **Warlock class** from the Reign of Terror DLC and modernizes the codebase for current Node.js/Electron versions.
+This fork adds support for the **Warlock class** from the Reign of the Warlock DLC and modernizes the codebase for current Node.js/Electron versions.
 
 ## What's New in This Fork
 

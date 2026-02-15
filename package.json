@@ -37,7 +37,7 @@
     ]
   },
   "build": {
-    "productName": "D2RMM",
+    "productName": "D2RMM-RotW",
     "appId": "com.lokhvitsky.D2RMM",
     "artifactName": "${productName} ${version}.${ext}",
     "asar": true,

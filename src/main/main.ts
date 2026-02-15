@@ -87,7 +87,7 @@ import { CURRENT_VERSION } from './version';
       },
     });
     mainWindow.setTitle(
-      `[D2RMM] Diablo II: Resurrected Mod Manager ${CURRENT_VERSION}`,
+      'Diablo II: Resurrected Mod Manager - Reign of the Warlock 1.0',
     );
     mainWindow.removeMenu();
 

@@ -1,0 +1,70 @@
+[size=5][b]D2RMM - Reign of the Warlock Edition[/b][/size]
+[b]Diablo II: Resurrected Mod Manager with full Warlock class support[/b]
+
+A fork of D2RMM updated to support the [b]Reign of the Warlock DLC[/b] and the new [b]Warlock class[/b].
+
+[line]
+
+[size=4][b]Overview[/b][/size]
+This is a modified version of the D2RMM mod manager that adds full compatibility with the Reign of the Warlock DLC expansion. The mod manager itself has been modernized for current Node.js/Electron versions.
+
+[quote][b]Note:[/b] This fork exists to provide Reign of the Warlock support. If the original D2RMM adds native support in the future, we recommend using the official version. Until then, this fork will be maintained for the community.[/quote]
+
+[quote][b]Mod Compatibility:[/b] Not all existing D2RMM mods are compatible with the Warlock DLC out of the box. Mods that hardcode class names may need to be updated to include "Warlock" in their arrays. Check with mod authors for Warlock-compatible versions.[/quote]
+
+[quote][b]Antivirus Notice:[/b] Some antivirus software may flag this as suspicious. This is a false positive common with Electron-based modding tools. The source code is available on [url=https://github.com/BeanSparrow/d2r-rotw-mm]GitHub[/url] for review.[/quote]
+
+[line]
+
+[size=4][b]What's New[/b][/size]
+[list]
+[*][b]Warlock class support[/b] - Skill offset 373 for the new Warlock class
+[*][b]Modernized dependencies[/b] - Updated to Electron 28 and Node 18+
+[*][b]Replaced ffi-napi with koffi[/b] - Eliminates native module compilation issues on newer Node versions
+[/list]
+
+[line]
+
+[size=4][b]Requirements[/b][/size]
+[list]
+[*]Windows 10/11
+[*]Diablo II: Resurrected with Reign of the Warlock DLC installed
+[/list]
+
+[line]
+
+[size=4][b]Installation[/b][/size]
+[list=1]
+[*]Download and extract to your preferred location
+[*]Download Mods and place into the "Mods" folder
+[*]Run D2RMM.exe
+[*]Configure your D2R installation path
+[*]Enable desired mods and click "Run"
+[/list]
+
+[line]
+
+[size=4][b]For Mod Authors[/b][/size]
+If you're updating mods for Warlock compatibility:
+[list]
+[*][b]Skill offset:[/b] 373+
+[*][b]Class name in data files:[/b] Warlock / Warlock2
+[*][b]New item types:[/b] warl (Warlock Item), grim (Grimoire offhand)
+[/list]
+
+[line]
+
+[size=4][b]Credits[/b][/size]
+[list]
+[*][b]Original D2RMM:[/b] [url=https://github.com/olegbl]olegbl[/url] - [url=https://www.nexusmods.com/diablo2resurrected/mods/169]Nexus Mods[/url] | [url=https://github.com/olegbl/d2rmm]GitHub[/url]
+[*][b]CascLib:[/b] Ladislav Zezula - without which this mod manager would not be possible
+[/list]
+
+[line]
+
+[size=4][b]Links[/b][/size]
+[list]
+[*][url=https://github.com/BeanSparrow/d2r-rotw-mm]This Fork on GitHub[/url]
+[*][url=https://github.com/olegbl/d2rmm.mods]D2RMM Example Mods[/url]
+[*][url=https://olegbl.github.io/d2rmm/]D2RMM API Documentation[/url]
+[/list]

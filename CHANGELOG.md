@@ -8,7 +8,7 @@ All notable changes from the original [d2rmm](https://github.com/olegbl/d2rmm) r
 
 - **Warlock Class Support**
 
-  - Added skill offset 373 for the new Warlock class from the Reign of Terror DLC
+  - Added skill offset 373 for the new Warlock class from the Reign of the Warlock DLC
   - Location: `src/main/worker/third-party/d2s/d2/skills.ts`
 
 - **Buffer.readCString Polyfill**
@@ -140,4 +140,4 @@ const storage = cascStoragePtr[0];
 This fork is compatible with:
 
 - Diablo II: Resurrected (latest version)
-- Reign of the Warlock DLC (Warlock class)Remm
+- Reign of the Warlock DLC (Warlock class)
